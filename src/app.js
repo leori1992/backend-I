@@ -1,7 +1,7 @@
 // src/app.js
 const express = require('express');
-const productRoutes = require('./routes/product.routes');
-const cartRoutes = require('./routes/cart.routes');
+const productController = require('./controllers/product.controller');
+const cartController = require('./controllers/cart.controller');
 
 const app = express();
 
@@ -22,8 +22,14 @@ app.get('/', (req, res) => {
 
 // Montamos las rutas de productos en /api/products
 // Ahora cualquier petición a /api/products/ será manejada por productRoutes
-app.use('/api/products', productRoutes);
+app.get('/api/products', productController.getProducts);
+app.get('/api/products/:pid', productController.getProductById);
+app.post('/api/products', productController.addProduct);
+app.put('/api/products/:pid', productController.updateProduct);
+app.delete('/api/products/:pid', productController.deleteProduct);
 
-app.use('/api/carts', cartRoutes);
+app.post('/api/carts', cartController.createCart);
+app.get('/api/carts/:cid', cartController.getCartById);
+app.post('/api/carts/:cid/product/:pid', cartController.addProductToCart);
 
 module.exports = app;
