@@ -1,5 +1,5 @@
-const CartManager = require('../dao/CartManager');
-const productManager = require('../dao/ProductManager');
+import CartManager from '../dao/CartManager.js';
+import productManager from '../dao/ProductManager.js';
 
 const cartManager = new CartManager();
 
@@ -35,7 +35,7 @@ const addProductToCart = async (req, res) => {
     }
 };
 
-module.exports = {
+export default {
     createCart,
     getCartById,
     addProductToCart,

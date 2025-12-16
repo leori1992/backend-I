@@ -1,24 +1,13 @@
 [
   {
     "id": 1,
-    "title": "Test",
-    "description": "Desc",
-    "code": "C1",
-    "price": 100,
+    "title": "Zapatos|",
+    "description": "cuero",
+    "code": "850",
+    "price": 50000,
     "status": true,
-    "stock": 5,
-    "category": "cat",
-    "thumbnails": []
-  },
-  {
-    "id": 2,
-    "title": "Item2",
-    "description": "D",
-    "code": "X1",
-    "price": 50,
-    "status": true,
-    "stock": 3,
-    "category": "cat",
+    "stock": 10,
+    "category": "calzados",
     "thumbnails": []
   }
 ]

@@ -1,35 +1,25 @@
-// src/app.js
-const express = require('express');
-const productController = require('./controllers/product.controller');
-const cartController = require('./controllers/cart.controller');
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { engine } from 'express-handlebars';
+import productRoutes from './routes/product.routes.js';
+import cartRoutes from './routes/cart.routes.js';
+import viewsRoutes from './routes/views.routes.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 
-// Middleware para que Express entienda JSON en el body de las peticiones
-// ¡Esencial para que req.body funcione en POST y PUT!
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        name: 'Practica Backend API',
-        endpoints: {
-            products: '/api/products',
-            carts: '/api/carts'
-        }
-    });
-});
+app.use('/', viewsRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/carts', cartRoutes);
 
-// Montamos las rutas de productos en /api/products
-// Ahora cualquier petición a /api/products/ será manejada por productRoutes
-app.get('/api/products', productController.getProducts);
-app.get('/api/products/:pid', productController.getProductById);
-app.post('/api/products', productController.addProduct);
-app.put('/api/products/:pid', productController.updateProduct);
-app.delete('/api/products/:pid', productController.deleteProduct);
 
-app.post('/api/carts', cartController.createCart);
-app.get('/api/carts/:cid', cartController.getCartById);
-app.post('/api/carts/:cid/product/:pid', cartController.addProductToCart);
-
-module.exports = app;
+export default app;

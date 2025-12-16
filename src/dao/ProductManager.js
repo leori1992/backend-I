@@ -1,6 +1,8 @@
-// src/dao/ProductManager.js
-const fs = require('fs/promises');
-const path = require('path');
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class ProductManager {
     constructor() {
@@ -13,7 +15,6 @@ class ProductManager {
         try {
             const data = await fs.readFile(this.path, 'utf-8');
             this.products = JSON.parse(data);
-            console.log(`[ProductManager] productos cargados: ${this.products.length}`);
         } catch (error) {
             await this.saveToFile();
         }
@@ -97,4 +98,4 @@ class ProductManager {
     }
 }
 
-module.exports = new ProductManager();
+export default new ProductManager();

@@ -1,0 +1,12 @@
+{{! layout "main" }}
+<h1>Productos</h1>
+<p>
+  <a href="/realtimeproducts">Ir a productos en tiempo real</a>
+</p>
+<ul>
+  {{#each products}}
+    <li>
+      <strong>{{this.title}}</strong> - {{this.description}} - ${{this.price}} - Stock: {{this.stock}}
+    </li>
+  {{/each}}
+</ul>
